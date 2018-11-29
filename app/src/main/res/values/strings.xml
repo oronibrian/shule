@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Shule</string>
+    <string name="title_activity_maps">Shule</string>
+    <string name="failed">Auth failed</string>
+
+    <string name="popote">Popote</string>
+    <string name="searching">Searching For School? Worry Not</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="register">Register</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="username">UserName</string>
+    <string name="phone">0722000000</string>
+    <string name="title_activity_welcome">Map</string>
+    <string name="map_detail">AIzaSyA6U3kYOFwCPCsLt9OYMmWRF8yp9QNn9WE</string>
+    <string name="Home">Home</string>
+    <string name="Map">On Map</string>
+    <string name="ListSchools">List Schools</string>
+    <string name="Add">Add School</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+</resources>
