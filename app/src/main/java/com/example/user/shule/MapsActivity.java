@@ -29,6 +29,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -128,11 +129,12 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap = googleMap;
 
 
-        locationRef = FirebaseDatabase.getInstance()
-                .getReference().child("schools");
 
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference ref = database.child("schools");
+//        Query queryRef = ref.limitToLast(100);
 
-        locationRef.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() != null){
@@ -141,9 +143,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                     System.out.println(s.getValue());
 
-//                    School school = s.getValue(School.class);
-//                    LatLng location=new LatLng(school.getLat(),school.getLongi());
-//                    mMap.addMarker(new MarkerOptions().position(location).title(school.getName())).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW));
+                    School school = s.getValue(School.class);
+                    LatLng location=new LatLng(school.getLat(),school.getLongi());
+                    mMap.addMarker(new MarkerOptions().position(location).title(school.getName())).setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
                 }
             }}
 

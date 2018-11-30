@@ -1,16 +1,6 @@
 package com.example.user.shule.Models;
 
-import android.support.annotation.Keep;
-
-import com.google.firebase.database.Exclude;
-import com.google.firebase.database.IgnoreExtraProperties;
-
-import java.io.Serializable;
-
-@IgnoreExtraProperties
-@Keep
-
-public class School  implements Serializable {
+public class School {
     private String Name, Desc;
     private Double Longi, Lat;
 

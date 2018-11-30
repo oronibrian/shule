@@ -1,5 +1,9 @@
 package com.example.user.shule;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +19,8 @@ public class AddSchool extends AppCompatActivity {
     EditText lat,longit;
     Button submit;
     DatabaseReference rootRef,locationRef;
+    ProgressDialog progressDoalog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +34,7 @@ public class AddSchool extends AppCompatActivity {
         submit = (Button) findViewById(R.id.btnSubmit);
         rootRef = FirebaseDatabase.getInstance().getReference();
         locationRef = rootRef.child("schools");
+
 
 
 
@@ -47,10 +54,54 @@ public class AddSchool extends AppCompatActivity {
                 school.setLongi(longitude);
 
 //                locationRef.push().setValue(name);
-                locationRef.setValue(school);
+                locationRef.push().setValue(school);
+//                ProgressDialog progressDoalog = new ProgressDialog(getApplicationContext());
+//
+//                progressDoalog.setMax(100);
+//                progressDoalog.setMessage("loading....");
+//                progressDoalog.setTitle("Adding School");
+//                progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//                progressDoalog.show();
+//
+//                finish();
 
 
+                progressDoalog = new ProgressDialog(AddSchool.this);
+                progressDoalog.setMax(100);
+                progressDoalog.setMessage("Saving school....");
+                progressDoalog.setTitle("Adding School");
+                progressDoalog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDoalog.show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            while (progressDoalog.getProgress() <= progressDoalog
+                                    .getMax()) {
+                                Thread.sleep(200);
+                                handle.sendMessage(handle.obtainMessage());
+                                if (progressDoalog.getProgress() == progressDoalog
+                                        .getMax()) {
+                                    progressDoalog.dismiss();
+                                    startActivity(new Intent(getApplicationContext(),MapsActivity.class));
+                                    finish();
+                                }
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
+
+            Handler handle = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    super.handleMessage(msg);
+                    progressDoalog.incrementProgressBy(2);
+                }
+            };
+
         });
 
     }

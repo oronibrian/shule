@@ -41,7 +41,8 @@
         android:layout_marginTop="154dp"
         android:ems="10"
         android:hint="Lat"
-        android:inputType="numberDecimal" />
+        android:inputType="numberSigned|numberDecimal|textPersonName"
+        android:digits="0123456789.-" />
 
     <EditText
         android:id="@+id/longit"
